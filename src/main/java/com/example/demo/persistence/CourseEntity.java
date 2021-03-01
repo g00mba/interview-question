@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -46,7 +48,8 @@ public class CourseEntity {
 	@Column (name = "availability")
 	private Integer availability;
 	
-	@JsonIgnore
+
+    @JsonInclude(Include.NON_NULL)
 	@OneToMany(mappedBy = "course")
 	private Set<UserEntity> users;
 }

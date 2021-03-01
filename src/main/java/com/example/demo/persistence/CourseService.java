@@ -18,19 +18,23 @@ public class CourseService {
 	}
 	
 	public CourseEntity createOrUpdateCourse(CourseEntity course) throws RecordNotFoundException {
-	
-		Optional<CourseEntity> persistedCourse = courseRepository.findById(course.getId());
-		
-		if (persistedCourse.isPresent()) {
-			CourseEntity updatedCourse = persistedCourse.get();
-			updatedCourse.setCapacity(course.getCapacity());
-			updatedCourse.setStartDate(course.getStartDate());
-			updatedCourse.setEndDate(course.getEndDate());
-			updatedCourse.setTitle(course.getTitle());
+		course.setAvailability(course.getCapacity());
+		if (course.getId() != null) {
+			Optional<CourseEntity> persistedCourse = courseRepository.findById(course.getId());
 			
-			updatedCourse = courseRepository.save(updatedCourse);
+			if (persistedCourse.isPresent()) {
+				CourseEntity updatedCourse = persistedCourse.get();
+				updatedCourse.setCapacity(course.getCapacity());
+				updatedCourse.setStartDate(course.getStartDate());
+				updatedCourse.setEndDate(course.getEndDate());
+				updatedCourse.setTitle(course.getTitle());
+				
+				updatedCourse = courseRepository.save(updatedCourse);
+				
+				return updatedCourse;
+			}
 			
-			return updatedCourse;
+			else return courseRepository.save(course);			
 		}
 		
 		else return courseRepository.save(course);		

@@ -17,6 +17,10 @@ public class CourseService {
 		else throw new RecordNotFoundException("no course found for given Id");				
 	}
 	
+	public Optional<CourseEntity> getCourseByTitle(String title) throws RecordNotFoundException{
+	return Optional.ofNullable(courseRepository.findByTitle(title));
+	}
+	
 	public CourseEntity createOrUpdateCourse(CourseEntity course) throws RecordNotFoundException {
 		course.setAvailability(course.getCapacity());
 		if (course.getId() != null) {

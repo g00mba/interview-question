@@ -16,12 +16,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "TBL_COURSES")
+@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "courses")
 public class CourseEntity {
 
 	@Id
@@ -33,11 +39,11 @@ public class CourseEntity {
 	private String title;
 	
 	@NonNull
-	@Column(name = "startDate",nullable=false)
+	@Column(name = "start_date",nullable=false)
 	private Date startDate;
 	
 	@NonNull
-	@Column(name = "endDate", nullable=false)
+	@Column(name = "end_date", nullable=false)
 	private Date endDate;
 	
 	@NonNull

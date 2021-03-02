@@ -10,6 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,17 +28,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Table(name="TBL_USERS")
 public class UserEntity {
-	
+
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "course_id", nullable = false)
 	private CourseEntity course;
 	
 	@Id
+	@JsonIgnore
 	@GeneratedValue
 	private Long id;
 	
 	@NonNull
-	@Column(name ="name", nullable=false)
+	@Column(name ="name", nullable=false, length=350, unique = true)
 	private String name;
 	
 	@NonNull
@@ -41,5 +48,6 @@ public class UserEntity {
 	private Date registrationDate;
 	
 	@Column(name = "cancelDate")
+    @JsonInclude(Include.NON_NULL)
 	private Date cancelDate;
 }

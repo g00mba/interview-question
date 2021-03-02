@@ -11,10 +11,9 @@ public class CourseService {
 	@Autowired
 	CourseRepository courseRepository;
 	
-	public CourseEntity getCourseById(Long id) throws RecordNotFoundException {
+	public Optional<CourseEntity> getCourseById(Long id) throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseRepository.findById(id);
-		if (course.isPresent()) return course.get();
-		else throw new RecordNotFoundException("no course found for given Id");				
+		return course;			
 	}
 	
 	public Optional<CourseEntity> getCourseByTitle(String title) throws RecordNotFoundException{

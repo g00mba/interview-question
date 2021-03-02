@@ -1,6 +1,7 @@
 package com.example.demo.persistence;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,9 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -24,9 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "courses")
 public class CourseEntity {
 
@@ -54,8 +57,7 @@ public class CourseEntity {
 	@Column (name = "availability")
 	private Integer availability;
 	
-
     @JsonInclude(Include.NON_NULL)
 	@OneToMany(mappedBy = "course")
-	private Set<UserEntity> users;
+	private List<UserEntity> users;
 }

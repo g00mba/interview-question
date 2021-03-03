@@ -1,5 +1,6 @@
 package com.example.demo.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ public class CourseService {
 	
 	public Optional<CourseEntity> getCourseById(Long id) throws RecordNotFoundException {
 		return courseRepository.findById(id);			
+	}
+	
+	public List<Optional<CourseEntity>> findCoursesByTitle(String title) {
+		return courseRepository.findByTitleLike(title);
 	}
 	
 	public Optional<CourseEntity> getCourseByTitle(String title) throws RecordNotFoundException{

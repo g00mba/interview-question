@@ -1,5 +1,6 @@
 package com.example.demo.persistence;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,14 @@ public class CourseController extends ResponseEntityExceptionHandler {
 	}
 
 	@GetMapping
-	public ResponseEntity<CourseEntity> findByTitle(@RequestParam(name = "q") String title)
+	public ResponseEntity<List<Optional<CourseEntity>>> findByTitle(@RequestParam(name = "q") String title)
 			throws RecordNotFoundException {
-		Optional<CourseEntity> course = courseService.getCourseByTitle(title.replaceAll("^\"|\"$", ""));
+		List<Optional<CourseEntity>> course = courseService.findCoursesByTitle(title.replaceAll("^\"|\"$", ""));
 		
 		if (course.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no course found by that name!");
 		
-		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(course, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
@@ -64,9 +65,16 @@ public class CourseController extends ResponseEntityExceptionHandler {
 		if (course.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
 		
+		Optional<UserEntity> persistedUser = userService.findByNameAndCourse(newUser.getName(), course.get());
+		if (persistedUser.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "a user with the same name is already enrolled in the course");
+		
 		if (course.get().getAvailability() < 1)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "this course has reached the maximum amount of users");
 		
+
+		if ( newUser.getRegistrationDate().isAfter(course.get().getStartDate().minusDays(3)))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the student tried to enroll after the enrollment period ended");
+
 		newUser.setCourse(course.get());
 		userService.createOrUpdateUser(newUser);
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);

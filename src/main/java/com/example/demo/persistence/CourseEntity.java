@@ -1,6 +1,7 @@
 package com.example.demo.persistence;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -43,11 +44,11 @@ public class CourseEntity {
 	
 	@NonNull
 	@Column(name = "start_date",nullable=false)
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@NonNull
 	@Column(name = "end_date", nullable=false)
-	private Date endDate;
+	private LocalDate endDate;
 	
 	@NonNull
 	@Column (name = "capacity", nullable=false)
@@ -57,7 +58,8 @@ public class CourseEntity {
 	@Column (name = "availability")
 	private Integer availability;
 	
-    @JsonInclude(Include.NON_NULL)
+    @JsonProperty("participants")
+	@JsonInclude(Include.NON_NULL)
 	@OneToMany(mappedBy = "course")
 	private List<UserEntity> users;
 }

@@ -1,6 +1,7 @@
 package com.example.demo.persistence;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,12 +28,14 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
-@Table(name="TBL_USERS")
+@Table(name="TBL_USERS", uniqueConstraints={
+	    @UniqueConstraint(columnNames = {"name", "course"})
+	}) 
 public class UserEntity {
 
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "course_id", nullable = false)
+	@JoinColumn(name = "course", nullable = false)
 	private CourseEntity course;
 	
 	@Id
@@ -40,14 +44,14 @@ public class UserEntity {
 	private Long id;
 	
 	@NonNull
-	@Column(name ="name", nullable=false, length=350, unique = true)
+	@Column(name ="name", nullable=false, length=350)
 	private String name;
 	
 	@NonNull
 	@Column(name = "registrationDate", nullable=false)
-	private Date registrationDate;
+	private LocalDate registrationDate;
 	
 	@Column(name = "cancelDate")
     @JsonInclude(Include.NON_NULL)
-	private Date cancelDate;
+	private LocalDate cancelDate;
 }

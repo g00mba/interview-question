@@ -12,12 +12,11 @@ public class CourseService {
 	CourseRepository courseRepository;
 	
 	public Optional<CourseEntity> getCourseById(Long id) throws RecordNotFoundException {
-		Optional<CourseEntity> course = courseRepository.findById(id);
-		return course;			
+		return courseRepository.findById(id);			
 	}
 	
 	public Optional<CourseEntity> getCourseByTitle(String title) throws RecordNotFoundException{
-	return Optional.ofNullable(courseRepository.findByTitle(title));
+		return Optional.ofNullable(courseRepository.findByTitle(title));
 	}
 	
 	public CourseEntity createOrUpdateCourse(CourseEntity course) throws RecordNotFoundException {

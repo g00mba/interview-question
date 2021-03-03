@@ -10,7 +10,8 @@ public class UserService {
 	@Autowired
 	CourseRepository courseRepository;
 	
-	public UserEntity createOrUpdateUser(UserEntity newUser) {		
+	public UserEntity createOrUpdateUser(UserEntity newUser) {
+			newUser.getCourse().setAvailability(newUser.getCourse().getAvailability()-1);
 			return userRepository.save(newUser);			
 	}
 }

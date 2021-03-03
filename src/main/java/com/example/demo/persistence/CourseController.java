@@ -41,15 +41,18 @@ public class CourseController extends ResponseEntityExceptionHandler {
 	public ResponseEntity<CourseEntity> findByTitle(@RequestParam(name = "q") String title)
 			throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseService.getCourseByTitle(title.replaceAll("^\"|\"$", ""));
+		
 		if (course.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no course found by that name!");
+		
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<CourseEntity> findById(@PathVariable Long id) throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseService.getCourseById(id);
-		if(course.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
+		if (course.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 	}
 
@@ -57,7 +60,13 @@ public class CourseController extends ResponseEntityExceptionHandler {
 	public ResponseEntity<CourseEntity> addUser(@PathVariable Long courseId, @RequestBody UserEntity newUser)
 			throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseService.getCourseById(courseId);
-		if(course.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
+		
+		if (course.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
+		
+		if (course.get().getAvailability() < 1)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "this course has reached the maximum amount of users");
+		
 		newUser.setCourse(course.get());
 		userService.createOrUpdateUser(newUser);
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);

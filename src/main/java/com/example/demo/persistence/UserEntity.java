@@ -1,6 +1,5 @@
 package com.example.demo.persistence;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -21,7 +21,7 @@ public class CourseService {
 	}
 	
 	public Optional<CourseEntity> getCourseByTitle(String title) throws RecordNotFoundException{
-		return Optional.ofNullable(courseRepository.findByTitle(title));
+		return courseRepository.findByTitle(title);
 	}
 	
 	public CourseEntity createOrUpdateCourse(CourseEntity course) throws RecordNotFoundException {
@@ -30,15 +30,7 @@ public class CourseService {
 			Optional<CourseEntity> persistedCourse = courseRepository.findById(course.getId());
 			
 			if (persistedCourse.isPresent()) {
-				CourseEntity updatedCourse = persistedCourse.get();
-				updatedCourse.setCapacity(course.getCapacity());
-				updatedCourse.setStartDate(course.getStartDate());
-				updatedCourse.setEndDate(course.getEndDate());
-				updatedCourse.setTitle(course.getTitle());
-				
-				updatedCourse = courseRepository.save(updatedCourse);
-				
-				return updatedCourse;
+				return persistedCourse.get();
 			}
 			
 			else return courseRepository.save(course);			

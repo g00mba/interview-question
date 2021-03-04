@@ -47,7 +47,7 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 
 	@GetMapping
 	public ResponseEntity<List<Optional<CourseEntity>>> findByTitle(@RequestParam(name = "q") String title)
-			 {
+			throws RecordNotFoundException {
 		List<Optional<CourseEntity>> course = courseService.findCoursesByTitle(title.replaceAll("^\"|\"$", ""));
 
 		if (course.isEmpty())
@@ -105,9 +105,9 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 						"the student tried to cancel subscription after the cancellation period ended");
 
 			userService.deleteUser(persistedUser.get());
-		} else
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "given user is not enrolled in course");
-
+		}
+		else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "given user is not enrolled in course");
+		
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 
 	}

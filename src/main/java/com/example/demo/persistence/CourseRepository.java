@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
-	CourseEntity findByTitle (String title);
+	Optional<CourseEntity> findByTitle (String title);
 	List<Optional<CourseEntity>> findByTitleLike (String title);
 
 }

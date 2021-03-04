@@ -12,14 +12,23 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * The Class CourseEntityTest. validates the persistence Layer for courses
+ */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class CourseEntityTest {
+
+	/** The entity manager. */
 	@Autowired
 	private TestEntityManager entityManager;
 
+	/** The correct course. */
 	private static CourseEntity correctCourse;
 
+	/**
+	 * Setup.
+	 */
 	@BeforeAll
 	public static void setup() {
 		correctCourse = new CourseEntity();
@@ -31,6 +40,9 @@ class CourseEntityTest {
 
 	}
 
+	/**
+	 * Test valid course.
+	 */
 	@Test
 	void testValidCourse() {
 		CourseEntity persistedCourse = entityManager.persist(correctCourse);

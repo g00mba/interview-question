@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,15 +23,29 @@ import com.example.demo.persistence.RecordNotFoundException;
 import com.example.demo.persistence.UserEntity;
 import com.example.demo.persistence.UserService;
 
+/**
+ * The Class CoursesController. this class handles all requests and constraint
+ * rules for the project
+ */
 @RestController
 @RequestMapping("/courses")
 public class CoursesController extends ResponseEntityExceptionHandler {
+
+	/** The course service. */
 	@Autowired
 	CourseService courseService;
 
+	/** The user service. */
 	@Autowired
 	UserService userService;
 
+	/**
+	 * Creates the or update course.
+	 *
+	 * @param course the course
+	 * @return the response entity
+	 * @throws ResponseStatusException
+	 */
 	@PostMapping
 	public ResponseEntity<CourseEntity> createOrUpdateCourse(@RequestBody CourseEntity course)
 			throws RecordNotFoundException {
@@ -45,6 +58,13 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(updated, new HttpHeaders(), HttpStatus.CREATED);
 	}
 
+	/**
+	 * Find by title.
+	 *
+	 * @param title
+	 * @return the response entity
+	 * @throws ResponseStatusException
+	 */
 	@GetMapping
 	public ResponseEntity<List<Optional<CourseEntity>>> findByTitle(@RequestParam(name = "q") String title)
 			throws RecordNotFoundException {
@@ -56,6 +76,13 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(course, new HttpHeaders(), HttpStatus.OK);
 	}
 
+	/**
+	 * Find by id.
+	 *
+	 * @param id
+	 * @return the response entity
+	 * @throws ResponseStatusException
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<CourseEntity> findById(@PathVariable Long id) throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseService.getCourseById(id);
@@ -64,6 +91,14 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 	}
 
+	/**
+	 * Adds the user.
+	 *
+	 * @param courseId
+	 * @param newUser  as a UserEntity
+	 * @return the response entity
+	 * @throws ResponseStatusException
+	 */
 	@PostMapping("/{courseId}/add")
 	public ResponseEntity<CourseEntity> addUser(@PathVariable Long courseId, @RequestBody UserEntity newUser)
 			throws RecordNotFoundException {
@@ -90,6 +125,14 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 	}
 
+	/**
+	 * Removes the user.
+	 *
+	 * @param courseId
+	 * @param user
+	 * @return the response entity
+	 * @throws ResponseStatusException
+	 */
 	@PostMapping("/{courseId}/remove")
 	public ResponseEntity<CourseEntity> removeUser(@PathVariable Long courseId, @RequestBody UserEntity user)
 			throws RecordNotFoundException {
@@ -105,9 +148,9 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 						"the student tried to cancel subscription after the cancellation period ended");
 
 			userService.deleteUser(persistedUser.get());
-		}
-		else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "given user is not enrolled in course");
-		
+		} else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "given user is not enrolled in course");
+
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
 
 	}

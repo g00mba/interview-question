@@ -12,18 +12,27 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+/**
+ * The Class UserEntityTest. Check correct operation of the persistence layer
+ */
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 class UserEntityTest {
-	
+
+	/** The entity manager. */
 	@Autowired
 	private TestEntityManager entityManager;
-	
+
+	/** The course. */
 	private static CourseEntity course = new CourseEntity();
-	
+
+	/** The user. */
 	private static UserEntity user = new UserEntity();;
-	
-	@BeforeEach	
+
+	/**
+	 * Setup.
+	 */
+	@BeforeEach
 	public void setup() {
 		course.setAvailability(10);
 		course.setCapacity(10);
@@ -35,9 +44,12 @@ class UserEntityTest {
 		user.setName("stan");
 		user.setRegistrationDate(LocalDate.of(2021, 01, 02));
 		user.setCourse(course);
-		
+
 	}
-	
+
+	/**
+	 * Tests that a user entity can be correctly persisted
+	 */
 	@Test
 	void testUserEntity() {
 		UserEntity persistedUser = entityManager.persist(user);

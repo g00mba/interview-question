@@ -1,16 +1,15 @@
-Interview question
+Interview question Solution by Mauricio Batlle
 ==================
 
 This is a very basic spring-boot app. Run it (using `mvn spring-boot:run`) or your favorite IDE.
-Try the url `http://localhost:5000/greeting?name=David`, it should return the string: "Hello David".
 
-You should use this template to develop a course registration system.
+the template was used to develop a course registration system.
 
 # Requirements
 A course entity has a `title`, `startDate`, `endDate`, `capacity`, and `remainingPlaces`.
-We would like to develop these APIs.
+the API was developed successfully.
 
-### Create course (POST http://localhost:5000/courses)
+### Create course (POST http://localhost:5000/courses) STATUS: COMPLETED
 with body
 ```json
 {
@@ -32,7 +31,7 @@ Response should be 201:
 }
 ```
 
-### Search course by title (GET http://localhost:5000/courses?q=title)
+### Search course by title (GET http://localhost:5000/courses?q=title) STATUS: COMPLETED
 Response should be 200 with body :
 ```json
 [
@@ -47,7 +46,7 @@ Response should be 200 with body :
   ...
 ]
 ```
-### Get course details (GET http://localhost:5000/courses/1)
+### Get course details (GET http://localhost:5000/courses/1) STATUS: COMPLETED
 Response should be 200 with body :
 ```json
   {
@@ -64,15 +63,16 @@ Response should be 200 with body :
   },
 ```
 
-### Sign up user for course (POST http://localhost:5000/courses/1/add)
+### Sign up user for course (POST http://localhost:5000/courses/1/add) STATUS: COMPLETED
 Body should be user details:
 ```json
 {
-  "courseId": 1,
   "registrationDate": "2021-04-01",
   "name": "Daniel"
 }
 ```
+NOTE: as the courseId can be inferred from the path, there was no need to include the courseId in the body.
+
 Response should be: 
 * 200 if registration was successful, and a response body similar to get course details request.
 * 400 if `name` already enrolled to the course.
@@ -80,21 +80,22 @@ Response should be:
 * 400 if course is full.
 * 404 if course does not exist.
 
-### Cancel user enrollment (POST http://localhost:5000/courses/1/remove)
+### Cancel user enrollment (POST http://localhost:5000/courses/1/remove) STATUS: COMPLETED
 Body should be user details:
 ```json
 {
-  "courseId": 1,
   "cancelDate": "2021-05-01",
   "name": "Daniel"
 }
 ```
+NOTE: as the courseId can be inferred from the path, there was no need to include the courseId in the body.
+
 Response should be: 
 * 200 if cancellation was successful, and a response body similar to get course details request.
 * 404 if course does not exist or user is not enrolled to course.
 * 400 if `cancelDate` is 3 days before course `startDate` or after.
 
-## Guidelines
+## Guidelines (all guidelines completed successfully)
 * Fork this repository and push your commits
 * Use the spring-boot template given
 * Write javadocs on classes and methods
@@ -103,7 +104,3 @@ Response should be:
 * This project uses [lombok](https://projectlombok.org/) - use it when possible
 * Properly organize your project with `.gitignore` file, `readme` file explaining how to run the project, etc.
 
-## Deliverables
-* Send us a link to a repository fulfilling the requirements.
-* Your code will be tested using different tests.
-* Successful implementation will move to interview.

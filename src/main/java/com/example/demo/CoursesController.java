@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,12 +47,12 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 
 	@GetMapping
 	public ResponseEntity<List<Optional<CourseEntity>>> findByTitle(@RequestParam(name = "q") String title)
-			throws RecordNotFoundException {
+			 {
 		List<Optional<CourseEntity>> course = courseService.findCoursesByTitle(title.replaceAll("^\"|\"$", ""));
-		
+
 		if (course.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "no course found by that name!");
-		
+
 		return new ResponseEntity<>(course, new HttpHeaders(), HttpStatus.OK);
 	}
 
@@ -67,22 +68,47 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	public ResponseEntity<CourseEntity> addUser(@PathVariable Long courseId, @RequestBody UserEntity newUser)
 			throws RecordNotFoundException {
 		Optional<CourseEntity> course = courseService.getCourseById(courseId);
-		
+
 		if (course.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
-		
-		Optional<UserEntity> persistedUser = userService.findByNameAndCourse(newUser.getName(), course.get());
-		if (persistedUser.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "a user with the same name is already enrolled in the course");
-		
-		if (course.get().getAvailability() < 1)
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "this course has reached the maximum amount of users");
-		
 
-		if ( newUser.getRegistrationDate().isAfter(course.get().getStartDate().minusDays(3)))
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "the student tried to enroll after the enrollment period ended");
+		Optional<UserEntity> persistedUser = userService.findByNameAndCourse(newUser.getName(), course.get());
+		if (persistedUser.isPresent())
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"a user with the same name is already enrolled in the course");
+
+		if (course.get().getAvailability() < 1)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"this course has reached the maximum amount of users");
+
+		if (newUser.getRegistrationDate().isAfter(course.get().getStartDate().minusDays(3)))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"the student tried to enroll after the enrollment period ended");
 
 		newUser.setCourse(course.get());
 		userService.createOrUpdateUser(newUser);
 		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@PostMapping("/{courseId}/remove")
+	public ResponseEntity<CourseEntity> removeUser(@PathVariable Long courseId, @RequestBody UserEntity user)
+			throws RecordNotFoundException {
+		Optional<CourseEntity> course = courseService.getCourseById(courseId);
+
+		if (course.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the given course Id was not found");
+
+		Optional<UserEntity> persistedUser = userService.findByNameAndCourse(user.getName(), course.get());
+		if (persistedUser.isPresent()) {
+			if (user.getCancelDate().isAfter(course.get().getStartDate().minusDays(3)))
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+						"the student tried to cancel subscription after the cancellation period ended");
+
+			userService.deleteUser(persistedUser.get());
+		} else
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "given user is not enrolled in course");
+
+		return new ResponseEntity<>(course.get(), new HttpHeaders(), HttpStatus.OK);
+
 	}
 }

@@ -20,4 +20,9 @@ public class UserService {
 	public Optional<UserEntity> findByNameAndCourse(String name, CourseEntity course) {
 		return userRepository.findByNameAndCourse(name, course);
 	}
+	
+	public void deleteUser(UserEntity user) {
+		user.getCourse().setAvailability(user.getCourse().getAvailability()+1);
+		userRepository.delete(user);
+	}
 }

@@ -1,13 +1,17 @@
-Interview question Solution by Mauricio Batlle
+Backbase Interview question Solution by Mauricio Batlle
 ==================
+![status](https://img.shields.io/github/checks-status/g00mba/interview-question/master?style=plastic)
+
 
 This is a very basic spring-boot app. Run it (using `mvn spring-boot:run`) or your favorite IDE.
 
 the template was used to develop a course registration system.
 
 # Requirements
-A course entity has a `title`, `startDate`, `endDate`, `capacity`, and `remainingPlaces`.
-the API was developed successfully.
+A course entity has a `title`, `startDate`, `endDate`, `capacity`, and `remainingPlaces`. this code 
+implements an api that handles the creation courses as well as the creation and deletion of users.
+the API was developed according to all the requirements requested
+
 
 ### Create course (POST http://localhost:5000/courses) STATUS: COMPLETED
 with body
@@ -31,6 +35,7 @@ Response should be 201:
 }
 ```
 
+
 ### Search course by title (GET http://localhost:5000/courses?q=title) STATUS: COMPLETED
 Response should be 200 with body :
 ```json
@@ -46,6 +51,8 @@ Response should be 200 with body :
   ...
 ]
 ```
+
+
 ### Get course details (GET http://localhost:5000/courses/1) STATUS: COMPLETED
 Response should be 200 with body :
 ```json
@@ -62,6 +69,7 @@ Response should be 200 with body :
   ]
   },
 ```
+
 
 ### Sign up user for course (POST http://localhost:5000/courses/1/add) STATUS: COMPLETED
 Body should be user details:
@@ -80,6 +88,7 @@ Response should be:
 * 400 if course is full.
 * 404 if course does not exist.
 
+
 ### Cancel user enrollment (POST http://localhost:5000/courses/1/remove) STATUS: COMPLETED
 Body should be user details:
 ```json
@@ -94,6 +103,7 @@ Response should be:
 * 200 if cancellation was successful, and a response body similar to get course details request.
 * 404 if course does not exist or user is not enrolled to course.
 * 400 if `cancelDate` is 3 days before course `startDate` or after.
+
 
 ## Guidelines (all guidelines completed successfully)
 * Fork this repository and push your commits

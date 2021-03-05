@@ -1,12 +1,17 @@
-package com.backbase.interview.persistence;
+package com.backbase.interview.services;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backbase.interview.persistence.entities.CourseEntity;
+import com.backbase.interview.persistence.entities.UserEntity;
+import com.backbase.interview.persistence.repositories.CourseRepository;
+import com.backbase.interview.persistence.repositories.UserRepository;
+
 /**
- * The Class UserService. manages the repository of users
+ * The Class UserService. manages the repository for user persistence
  */
 @Service
 public class UserService {

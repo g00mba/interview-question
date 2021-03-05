@@ -1,4 +1,4 @@
-package com.backbase.interview.persistence;
+package com.backbase.interview.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backbase.interview.persistence.RecordNotFoundException;
+import com.backbase.interview.persistence.entities.CourseEntity;
+import com.backbase.interview.persistence.repositories.CourseRepository;
+
 /**
- * The Class CourseService. handles the repository for courses
+ * The Class CourseService. handles the repository for course persistence
  */
 @Service
 public class CourseService {

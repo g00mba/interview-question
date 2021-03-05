@@ -1,4 +1,4 @@
-package com.backbase.interview;
+package com.backbase.interview.controllers;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -19,10 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.backbase.interview.persistence.CourseEntity;
-import com.backbase.interview.persistence.CourseService;
-import com.backbase.interview.persistence.UserEntity;
-import com.backbase.interview.persistence.UserService;
+import com.backbase.interview.persistence.entities.CourseEntity;
+import com.backbase.interview.persistence.entities.UserEntity;
+import com.backbase.interview.services.CourseService;
+import com.backbase.interview.services.UserService;
 
 /**
  * The Class CoursesControllerTest. Evaluates all the endpoints and its

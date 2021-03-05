@@ -1,4 +1,4 @@
-package com.backbase.interview.persistence;
+package com.backbase.interview.persistence.entities;
 
 import java.time.LocalDate;
 

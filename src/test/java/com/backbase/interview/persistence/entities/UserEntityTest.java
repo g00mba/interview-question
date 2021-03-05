@@ -1,4 +1,4 @@
-package com.backbase.interview.persistence;
+package com.backbase.interview.persistence.entities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,8 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.backbase.interview.persistence.CourseEntity;
-import com.backbase.interview.persistence.UserEntity;
 
 /**
  * The Class UserEntityTest. Check correct operation of the persistence layer

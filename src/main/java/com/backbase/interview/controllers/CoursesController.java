@@ -1,4 +1,4 @@
-package com.backbase.interview;
+package com.backbase.interview.controllers;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.backbase.interview.persistence.CourseEntity;
-import com.backbase.interview.persistence.CourseService;
 import com.backbase.interview.persistence.RecordNotFoundException;
-import com.backbase.interview.persistence.UserEntity;
-import com.backbase.interview.persistence.UserService;
+import com.backbase.interview.persistence.entities.CourseEntity;
+import com.backbase.interview.persistence.entities.UserEntity;
+import com.backbase.interview.services.CourseService;
+import com.backbase.interview.services.UserService;
 
 /**
  * The Class CoursesController. this class handles all requests and constraint
- * rules for the project
+ * rules for the project, the class is able to generate an endpoint for the following cases:
+ * create a course and handle exceptions
+ * add a user with controlled edge cases
+ * deletes a user with edge cases
  */
 @RestController
 @RequestMapping("/courses")
@@ -40,10 +43,10 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	UserService userService;
 
 	/**
-	 * Creates the or update course.
+	 * Creates a course.
 	 *
-	 * @param course the course
-	 * @return the response entity
+	 * @param course: the course represented as a CourseEntity
+	 * @return the response entity as a persisted CourseEntity
 	 * @throws ResponseStatusException
 	 */
 	@PostMapping
@@ -59,10 +62,10 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * Find by title.
+	 * Find by title. given a title (as a string) finds a list of possible matches
 	 *
 	 * @param title
-	 * @return the response entity
+	 * @return the response entity represented as a CourseEntity
 	 * @throws ResponseStatusException
 	 */
 	@GetMapping
@@ -77,7 +80,7 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * Find by id.
+	 * Find by id. Given a String containing the ID, returns the related course (if found)
 	 *
 	 * @param id
 	 * @return the response entity
@@ -92,10 +95,11 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * Adds the user.
+	 * Adds the user. given a user represented as a UserEntity and a valid course Id in the path
+	 * the method will persist the user
 	 *
-	 * @param courseId
-	 * @param newUser  as a UserEntity
+	 * @param courseId as a String
+	 * @param newUser as a UserEntity
 	 * @return the response entity
 	 * @throws ResponseStatusException
 	 */
@@ -126,10 +130,11 @@ public class CoursesController extends ResponseEntityExceptionHandler {
 	}
 
 	/**
-	 * Removes the user.
+	 * Removes the user. given a valid UserEntity in the body and a valid course id in the path,
+	 * this endpoint removes the user.
 	 *
-	 * @param courseId
-	 * @param user
+	 * @param courseId as part of the url
+	 * @param user as a UserEntity
 	 * @return the response entity
 	 * @throws ResponseStatusException
 	 */

@@ -3,9 +3,16 @@ Backbase Interview question Solution by Mauricio Batlle
 ![last commit](https://img.shields.io/github/last-commit/g00mba/interview-question?style=plastic)
 
 
-This is a very basic spring-boot app. Run it (using `mvn spring-boot:run`) or your favorite IDE.
+Description
 
-the template was used to develop a course registration system.
+This project is an API that implements a course registration system.
+
+#Usage
+This is a very basic spring-boot app. It makes use of Java and Maven, please make sure you have them installed.
+*Build the project using mvn clean install
+*Run it using mvn spring-boot:run or your favorite IDE.
+*This project uses Lombok. Please install Lombok plugin in your IDE, it helps to reduce the amount of ‘infrastructural code’
+*Javadoc is attached in directory /doc
 
 # Requirements
 A course entity has a `title`, `startDate`, `endDate`, `capacity`, and `remainingPlaces`. this code 

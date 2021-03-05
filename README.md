@@ -3,18 +3,22 @@ Backbase Interview question Solution by Mauricio Batlle
 ![last commit](https://img.shields.io/github/last-commit/g00mba/interview-question?style=plastic)
 
 
-Description
+###Description
 
 This project is an API that implements a course registration system.
 
-#Usage
+###Usage
 This is a very basic spring-boot app. It makes use of Java and Maven, please make sure you have them installed.
+
 *Build the project using mvn clean install
+
 *Run it using mvn spring-boot:run or your favorite IDE.
+
 *This project uses Lombok. Please install Lombok plugin in your IDE, it helps to reduce the amount of ‘infrastructural code’
+
 *Javadoc is attached in directory /doc
 
-# Requirements
+### Requirements
 A course entity has a `title`, `startDate`, `endDate`, `capacity`, and `remainingPlaces`. this code 
 implements an api that handles the creation courses as well as the creation and deletion of users.
 the API was developed according to all the requirements requested

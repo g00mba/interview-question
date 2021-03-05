@@ -1,4 +1,4 @@
-package com.example.demo.persistence;
+package com.backbase.interview.persistence;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
@@ -14,6 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.backbase.interview.persistence.CourseEntity;
+import com.backbase.interview.persistence.CourseRepository;
+import com.backbase.interview.persistence.CourseService;
+import com.backbase.interview.persistence.RecordNotFoundException;
+import com.backbase.interview.persistence.UserEntity;
+import com.backbase.interview.persistence.UserRepository;
+import com.backbase.interview.persistence.UserService;
 
 /**
  * The Class UserServiceTest. validates that the service layer is functioning

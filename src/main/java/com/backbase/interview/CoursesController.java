@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.backbase.interview;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.example.demo.persistence.CourseEntity;
-import com.example.demo.persistence.CourseService;
-import com.example.demo.persistence.RecordNotFoundException;
-import com.example.demo.persistence.UserEntity;
-import com.example.demo.persistence.UserService;
+import com.backbase.interview.persistence.CourseEntity;
+import com.backbase.interview.persistence.CourseService;
+import com.backbase.interview.persistence.RecordNotFoundException;
+import com.backbase.interview.persistence.UserEntity;
+import com.backbase.interview.persistence.UserService;
 
 /**
  * The Class CoursesController. this class handles all requests and constraint

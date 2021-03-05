@@ -1,4 +1,4 @@
-package com.example.demo.persistence;
+package com.backbase.interview.persistence;
 
 import java.util.List;
 import java.util.Optional;

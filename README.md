@@ -2,7 +2,7 @@ Backbase Interview question Solution by Mauricio Batlle
 ==================
 ![last commit](https://img.shields.io/github/last-commit/g00mba/interview-question?style=plastic)
 
-#Usage
+
 This is a very basic spring-boot app. It makes use of Java and Maven, please make sure you have them installed.
 Build the project using mvn clean install
 Run it using mvn spring-boot:run or your favorite IDE.

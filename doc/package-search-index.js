@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.backbase.interview"},{"l":"com.backbase.interview.controllers"},{"l":"com.backbase.interview.persistence.entities"},{"l":"com.backbase.interview.persistence.repositories"},{"l":"com.backbase.interview.services"}];updateSearchResults();

@@ -1,6 +1,6 @@
 Backbase Interview question Solution by Mauricio Batlle
 ==================
-![status](https://img.shields.io/github/checks-status/g00mba/interview-question/master?style=plastic)
+![last commit](https://img.shields.io/github/last-commit/g00mba/interview-question?style=plastic)
 
 
 This is a very basic spring-boot app. Run it (using `mvn spring-boot:run`) or your favorite IDE.

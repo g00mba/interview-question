@@ -1,0 +1,6 @@
+com.backbase.interview
+com.backbase.interview.controllers
+com.backbase.interview.persistence
+com.backbase.interview.persistence.entities
+com.backbase.interview.persistence.repositories
+com.backbase.interview.services
